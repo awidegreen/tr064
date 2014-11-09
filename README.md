@@ -3,12 +3,12 @@
 ###tr064lib
 *tr064lib* is a library which can be used for finding CPE capable devices in your local network. It implements its own very simple devices discovery mechanism (UPnP). 
 
-Once found, the devices will queried for available services which can than be executed accordingly (SOAP request). 
+Once found, the devices will be queried for available services which can then be executed accordingly (SOAP request). 
 
 The specification of the devices can also be exported in a single file, e.g. *json* and later reused (import) in order to avoid re-discovery and re-parsing. 
 
 ### tr064tool
-Is the front-end for *tr064lib*. It is command-line tool which provides most of `tr064lib`s functionality via a single command line application, see help for details and usage.
+Is the front-end for *tr064lib*. It is a command-line tool which provides most of `tr064lib`s functionality via a single command line application, see manpage for details and usage.
 
 **tr064tool** requires a service and an action, which are separated via colon. The same applies for action arguments:
 ```
@@ -22,13 +22,13 @@ List all available Services and Actions (-v prints action arguments) for a disco
 ```
 tr064tool -v --list
 ```
+
 ----------
-Execute an action for an imported root device from `fritzdesc_out.json`, using default username `admin` and password `foo`.  The service is WANIPConnection and  action  X_GetDNSServers.   Note, that X_GetDNSServers does not require any arguments.
+
+Execute an action for an imported root device from `fritzdesc_out.json`, using default username `admin` and password `foo`.  The service is WANIPConnection and  action  `X_GetDNSServers`.   Note, that `X_GetDNSServers` does not require any arguments.
 ```
 tr064tool -i fritzdesc_out.json -pfoo WANIPConnection:X_GetDNSServers
 ```
-
-
 
               
 ### tr064export
@@ -47,7 +47,7 @@ cd tr064
 mkdir build
 cd build
 cmake ..
-make -j4 && make install
+make -j4 
 ```
 
 ## Dependencies
@@ -57,7 +57,7 @@ Make sure that you have the following libraries installed:
 
 * cmake
 * boost
-* google-test
+* google-test (optional)
 * openssl (for MD5 algorithm)
 
 ## Debugging
@@ -71,7 +71,7 @@ cmake -DCMAKE_BUILD_TYPE=Debug ..
 ```
 
 ## Alternatives
-I'm aware that there is `upnpc` which provides similar functionality. However, In order to understand whats going on, I decided to implement most of the stuff myself. 
+I'm aware that there is `upnpc` which provides similar functionality. However, in order to understand whats going on, I decided to implement most of the stuff myself. 
 
 ## TODO
 Things that should be fixed or added
