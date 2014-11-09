@@ -78,8 +78,8 @@ Things that should be fixed or added
 
 ### Configuration transactions
 Setting of CPE configurations is done via a sequence of SOAP requests: `ConfigurationStarted` - `SetUserName` - `ConfigurationFinished`
-This currently not support.
-See 
+This is currently not support.
+See [TR064 spec](https://www.broadband-forum.org/technical/download/TR-064.pdf)
 
 ### pointer usage
 double check if certain implementations (Devices, Services) really need a shared_ptr, or if it can be solved via references instead.
@@ -94,5 +94,6 @@ Distributed under the BSD-Clause-2 License, see LICENSE.
 
 ## Resources
 
-[TR064 spec](https://www.broadband-forum.org/technical/download/TR-064.pdf)
+* [TR064 spec](https://www.broadband-forum.org/technical/download/TR-064.pdf)
+* AVW's TR-064 First steps
 
