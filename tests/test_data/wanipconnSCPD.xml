@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:dslforum-org:service-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <actionList>
+    <action>
+      <name>SetConnectionType</name>
+      <argumentList>
+        <argument>
+          <name>NewConnectionType</name>
+          <direction>in</direction>
+          <relatedStateVariable>ConnectionType</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>GetStatusInfo</name>
+      <argumentList>
+        <argument>
+          <name>NewConnectionStatus</name>
+          <direction>out</direction>
+          <relatedStateVariable>ConnectionStatus</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>NewLastConnectionError</name>
+          <direction>out</direction>
+          <relatedStateVariable>LastConnectionError</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>NewUptime</name>
+          <direction>out</direction>
+          <relatedStateVariable>Uptime</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+  </actionList>
+  <serviceStateTable>
+    <stateVariable sendEvents="no">
+      <name>Enable</name>
+      <dataType>boolean</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>Name</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>ConnectionType</name>
+      <dataType>string</dataType>
+      <defaultValue>Unconfigured</defaultValue>
+      <allowedValueList>
+        <allowedValue>Unconfigured</allowedValue>
+        <allowedValue>IP_Routed</allowedValue>
+        <allowedValue>IP_Bridged</allowedValue>
+      </allowedValueList>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>PossibleConnectionTypes</name>
+      <dataType>string</dataType>
+      <allowedValueList>
+        <allowedValue>Unconfigured</allowedValue>
+        <allowedValue>IP_Routed</allowedValue>
+        <allowedValue>IP_Bridged</allowedValue>
+      </allowedValueList>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>ConnectionStatus</name>
+      <dataType>string</dataType>
+      <defaultValue>Unconfigured</defaultValue>
+      <allowedValueList>
+        <allowedValue>Unconfigured</allowedValue>
+        <allowedValue>Connecting</allowedValue>
+        <allowedValue>Authenticating</allowedValue>
+        <allowedValue>PendingDisconnect</allowedValue>
+        <allowedValue>Disconnecting</allowedValue>
+        <allowedValue>Disconnected</allowedValue>
+        <allowedValue>Connected</allowedValue>
+      </allowedValueList>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>Uptime</name>
+      <dataType>ui4</dataType>
+      <defaultValue>0</defaultValue>
+      <allowedValueRange>
+        <minimum>0</minimum>
+        <maximum>4294967295</maximum>
+        <step>1</step>
+      </allowedValueRange>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>NATEnabled</name>
+      <dataType>boolean</dataType>
+      <defaultValue>1</defaultValue>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>LastConnectionError</name>
+      <dataType>string</dataType>
+      <defaultValue>ERROR_NONE</defaultValue>
+      <allowedValueList>
+        <allowedValue>ERROR_NONE</allowedValue>
+        <allowedValue>ERROR_ISP_TIME_OUT</allowedValue>
+        <allowedValue>ERROR_COMMAND_ABORTED</allowedValue>
+        <allowedValue>ERROR_NOT_ENABLED_FOR_INTERNET</allowedValue>
+        <allowedValue>ERROR_BAD_PHONE_NUMBER</allowedValue>
+        <allowedValue>ERROR_USER_DISCONNECT</allowedValue>
+        <allowedValue>ERROR_ISP_DISCONNECT</allowedValue>
+        <allowedValue>ERROR_IDLE_DISCONNECT</allowedValue>
+        <allowedValue>ERROR_FORCED_DISCONNECT</allowedValue>
+        <allowedValue>ERROR_SERVER_OUT_OF_RESOURCES</allowedValue>
+        <allowedValue>ERROR_RESTRICTED_LOGON_HOURS</allowedValue>
+        <allowedValue>ERROR_ACCOUNT_DISABLED</allowedValue>
+        <allowedValue>ERROR_ACCOUNT_EXPIRED</allowedValue>
+        <allowedValue>ERROR_PASSWORD_EXPIRED</allowedValue>
+        <allowedValue>ERROR_AUTHENTICATION_FAILURE</allowedValue>
+        <allowedValue>ERROR_NO_DIALTONE</allowedValue>
+        <allowedValue>ERROR_NO_CARRIER</allowedValue>
+        <allowedValue>ERROR_NO_ANSWER</allowedValue>
+        <allowedValue>ERROR_LINE_BUSY</allowedValue>
+        <allowedValue>ERROR_UNSUPPORTED_BITSPERSECOND</allowedValue>
+        <allowedValue>ERROR_TOO_MANY_LINE_ERRORS</allowedValue>
+        <allowedValue>ERROR_IP_CONFIGURATION</allowedValue>
+        <allowedValue>ERROR_UNKNOWN</allowedValue>
+      </allowedValueList>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>IdleDisconnectTime</name>
+      <dataType>ui4</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>DNSServers</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>MACAddress</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>ConnectionTrigger</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>ExternalIPAddress</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>RemoteHost</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>ExternalPort</name>
+      <dataType>ui2</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>InternalPort</name>
+      <dataType>ui2</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>PortMappingProtocol</name>
+      <dataType>string</dataType>
+      <allowedValueList>
+        <allowedValue>TCP</allowedValue>
+        <allowedValue>UDP</allowedValue>
+      </allowedValueList>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>InternalClient</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>PortMappingDescription</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>PortMappingEnabled</name>
+      <dataType>boolean</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>PortMappingLeaseDuration</name>
+      <dataType>ui4</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>PortMappingNumberOfEntries</name>
+      <dataType>ui2</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>RSIPAvailable</name>
+      <dataType>boolean</dataType>
+      <defaultValue>0</defaultValue>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>RouteProtocolRx</name>
+      <dataType>string</dataType>
+      <defaultValue>Off</defaultValue>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>DNSOverrideAllowed</name>
+      <dataType>boolean</dataType>
+      <defaultValue>0</defaultValue>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>RemoteIPAddress</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>DNSEnabled</name>
+      <dataType>boolean</dataType>
+      <defaultValue>1</defaultValue>
+    </stateVariable>
+  </serviceStateTable>
+</scpd>

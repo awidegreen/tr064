@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<root xmlns="urn:dslforum-org:device-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:dslforum-org:device:InternetGatewayDevice:1</deviceType>
+    <friendlyName>FRITZ!Box Fon WLAN 7390</friendlyName>
+    <manufacturer>AVM</manufacturer>
+    <manufacturerURL>www.avm.de</manufacturerURL>
+    <modelDescription>FRITZ!Box Fon WLAN 7390</modelDescription>
+    <modelName>FRITZ!Box Fon WLAN 7390</modelName>
+    <modelNumber> - avm</modelNumber>
+    <modelURL>www.avm.de</modelURL>
+    <UDN>uuid:739f2409-bccb-40e7-8e6c-0896D74196ED</UDN>
+    <iconList>
+      <icon>
+        <mimetype>image/gif</mimetype>
+        <width>118</width>
+        <height>119</height>
+        <depth>8</depth>
+        <url>/ligd.gif</url>
+      </icon>
+    </iconList>
+    <serviceList>
+      <service>
+        <serviceType>urn:dslforum-org:service:X_AVM-DE_MyFritz:1</serviceType>
+        <serviceId>urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1</serviceId>
+        <controlURL>/upnp/control/x_myfritz</controlURL>
+        <eventSubURL>/upnp/control/x_myfritz</eventSubURL>
+        <SCPDURL>/x_myfritzSCPD.xml</SCPDURL>
+      </service>
+    </serviceList>
+    <deviceList>
+      <device>
+        <deviceType>urn:dslforum-org:device:LANDevice:1</deviceType>
+        <friendlyName>LANDevice - FRITZ!Box Fon WLAN 7390</friendlyName>
+        <manufacturer>AVM</manufacturer>
+        <manufacturerURL>www.avm.de</manufacturerURL>
+        <modelDescription>LANDevice - FRITZ!Box Fon WLAN 7390</modelDescription>
+        <modelName>LANDevice - FRITZ!Box Fon WLAN 7390</modelName>
+        <modelNumber> - avm</modelNumber>
+        <modelURL>www.avm.de</modelURL>
+        <UDN>uuid:75802409-bccb-40e7-8e6b-0896D74196ED</UDN>
+        <UPC>AVM TR-064</UPC>
+        <serviceList>
+          <service>
+            <serviceType>urn:dslforum-org:service:WLANConfiguration:1</serviceType>
+            <serviceId>urn:WLANConfiguration-com:serviceId:WLANConfiguration1</serviceId>
+            <controlURL>/upnp/control/wlanconfig1</controlURL>
+            <eventSubURL>/upnp/control/wlanconfig1</eventSubURL>
+            <SCPDURL>/wlanconfigSCPD.xml</SCPDURL>
+          </service>
+        </serviceList>
+      </device>
+      <device>
+        <deviceType>urn:dslforum-org:device:WANDevice:1</deviceType>
+        <friendlyName>WANDevice - FRITZ!Box Fon WLAN 7390</friendlyName>
+        <manufacturer>AVM</manufacturer>
+        <manufacturerURL>www.avm.de</manufacturerURL>
+        <modelDescription>WANDevice - FRITZ!Box Fon WLAN 7390</modelDescription>
+        <modelName>WANDevice - FRITZ!Box Fon WLAN 7390</modelName>
+        <modelNumber> - avm</modelNumber>
+        <modelURL>www.avm.de</modelURL>
+        <UDN>uuid:75802409-bccb-40e7-8e6a-0896D74196ED</UDN>
+        <UPC>AVM TR-064</UPC>
+        <serviceList>
+          <service>
+            <serviceType>urn:dslforum-org:service:WANCommonInterfaceConfig:1</serviceType>
+            <serviceId>urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1</serviceId>
+            <controlURL>/upnp/control/wancommonifconfig1</controlURL>
+            <eventSubURL>/upnp/control/wancommonifconfig1</eventSubURL>
+            <SCPDURL>/wancommonifconfigSCPD.xml</SCPDURL>
+          </service>
+        </serviceList>
+        <deviceList>
+          <device>
+            <deviceType>urn:dslforum-org:device:WANConnectionDevice:1</deviceType>
+            <friendlyName>WANConnectionDevice - FRITZ!Box Fon WLAN 7390</friendlyName>
+            <manufacturer>AVM</manufacturer>
+            <manufacturerURL>www.avm.de</manufacturerURL>
+            <modelDescription>WANConnectionDevice - FRITZ!Box Fon WLAN 7390</modelDescription>
+            <modelName>WANConnectionDevice - FRITZ!Box Fon WLAN 7390</modelName>
+            <modelNumber> - avm</modelNumber>
+            <modelURL>www.avm.de</modelURL>
+            <UDN>uuid:75802409-bccb-40e7-8e69-0896D74196ED</UDN>
+            <UPC>AVM TR-064</UPC>
+            <serviceList>
+              <service>
+                <serviceType>urn:dslforum-org:service:WANDSLLinkConfig:1</serviceType>
+                <serviceId>urn:WANDSLLinkConfig-com:serviceId:WANDSLLinkConfig1</serviceId>
+                <controlURL>/upnp/control/wandsllinkconfig1</controlURL>
+                <eventSubURL>/upnp/control/wandsllinkconfig1</eventSubURL>
+                <SCPDURL>/wandsllinkconfigSCPD.xml</SCPDURL>
+              </service>
+            </serviceList>
+          </device>
+        </deviceList>
+      </device>
+    </deviceList>
+    <presentationURL>http://fritz.box</presentationURL>
+  </device>
+</root>

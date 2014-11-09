@@ -1,0 +1,75 @@
+.TH TR064TOOL 1 "Nov 1, 2014"
+
+.SH NAME
+tr064tool - Used to discover and execute service actions for CPE devices 
+
+.SH SYNOPSIS
+
+.B tr064tool\fP [ OPTIONS ] \fB<SERVICE\fP:\fBACTION>\fP \fB<PARAMn\fP:\fBVALUEn>\fP
+
+.SH DESCRIPTION
+
+.B tr064tool\fR lets you discover CPE devices in your local network, prints out
+all available services for the device and executes service actions. Action
+execution requires user authentication at the root device. The root device 
+discovery is based on UPnP. 
+
+.PP 
+CPE is short Customer Premises Equipment and is the routing device localed at a 
+customer premises for DSL connections.
+
+.PP
+The CPE device can also just be imported instead of discovered every time. See
+options for import details.
+
+.SH OPTIONS
+.TP
+\-h, --help
+Prints a help message.
+.TP
+\-l, --list
+List all services available for the CPE RootDevice (either imported or discovered).
+.TP
+\-i, --import \fIjson|xml file\fP
+Imports a CPE root device description based on xml or json (see 
+\fBtr064export(1)\fP for exporting discovered root devices).
+.TP
+\-u, --user \fIusername\fP
+Specifies a user name which is used for executing service actions, default
+\fBadmin\fP.
+.TP
+\-p, --password \fIpassword\fP
+Specifies a password which is used for executing service actions, default 
+\fBgurkensalat\fP.
+.TP
+\-v, --verbose 
+Enables verbose output of the execution. Note, if more traces are required, 
+consider debug compilation. In combination with \fBlist\fP option, all
+action arguments will be printed. 
+
+.SH EXAMPLES
+.TP 
+.B tr064tool -v --list 
+List all available Services and Actions (-v prints action arguments) for a 
+discovered root device.
+.TP
+.B tr064tool -i fritzdesc_out.json -pfoo WANIPConnection:X_GetDNSServers
+Executes an action for an imported root device from \fIfritzdesc_out.json\fP,
+using default username (admin) and password \fI"foo"\fP. 
+Service is \fIWANIPConnection\fP and action \fIX_GetDNSServers\fP. 
+Note that X_GetDNSServers does not require any arguments. 
+
+
+.SH SEE ALSO
+.TP
+Project homepage:
+.I https://github.com/awidegreen/tr064 
+.TP
+TR-064 "LAN-Side DSL CPE Configuration"
+.I http://www.broadband-forum.org/technical/download/TR-064.pdf
+.TP
+AVM's manual First Steps with TR-064
+
+.SH AUTHORS
+Armin Widegreen <armin.widegreen@gmail.com>
+
