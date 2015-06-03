@@ -62,6 +62,13 @@ RootDevice::create_root_device_from_http_buf(const char* buffer, size_t len)
 
   return device;
 }
+//------------------------------------------------------------------------------
+
+RootDevice::RootDevice(const std::string& location) :
+  _location(location),
+  _cpe_device(new Device())
+{
+}
 
 //------------------------------------------------------------------------------
 

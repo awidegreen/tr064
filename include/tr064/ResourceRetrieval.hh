@@ -2,6 +2,8 @@
 #define RESOURCERETRIEVAL_HH
 
 #include <memory>
+#include <string>
+#include <istream>
 
 namespace tr064
 {  

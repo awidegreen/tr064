@@ -31,7 +31,9 @@ const struct option longopts[] =
   {"verbose", no_argument,         0, 'v'},
   {"import",  optional_argument,   0, 'i'},
   {"user",    optional_argument,   0, 'u'},
-  {"password",optional_argument,   0, 'p'}
+  {"password",optional_argument,   0, 'p'},
+  {"location",optional_argument,   0, 'L'},
+  {0,         0,                   0,  0 }
 };
 
 //------------------------------------------------------------------------------
@@ -119,7 +121,7 @@ int main(int argc, char* argv[])
   int index = 0, iarg=0;
   while (iarg != -1 )
   {
-    iarg = getopt_long(argc, argv, "hlvi:u:p:", longopts, &index);
+    iarg = getopt_long(argc, argv, "hlvi:u:p:L:", longopts, &index);
 
     switch (iarg)
     {
@@ -152,6 +154,13 @@ int main(int argc, char* argv[])
                       << " is not available!" << std::endl;
             return 1;
           }
+          break;
+        }
+      case 'L':
+        {
+          std::string location = optarg;
+          root_device = RootDevice::Ptr(new RootDevice(location));
+          root_device->init();
           break;
         }
       case 'l':

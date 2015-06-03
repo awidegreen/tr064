@@ -20,6 +20,7 @@ public:
   typedef std::vector<Ptr> Vector;
 
   RootDevice();
+  RootDevice(const std::string& location);
   RootDevice(const std::string& location, const std::string& server,
              const std::string& cache_ctrl, const std::string& search_type,
              const std::string& usn, const std::string& device_desc_doc,

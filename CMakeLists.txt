@@ -34,7 +34,7 @@ add_subdirectory(src)
 add_subdirectory(man) 
 add_subdirectory(contrib) 
 
-find_package(GTest REQUIRED)
+find_package(GTest)
 if (GTEST_FOUND)
   message(STATUS "Found Gtest, including unit tests.")
   enable_testing()
