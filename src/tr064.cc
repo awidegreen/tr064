@@ -14,7 +14,7 @@
 #include <getopt.h>
 
 #define no_argument 0
-#define required_argument 1 
+#define requires_argument 1 
 #define optional_argument 2
 
 #define DEFAULT_USERNAME "admin"
@@ -32,7 +32,7 @@ const struct option longopts[] =
   {"import",  optional_argument,   0, 'i'},
   {"user",    optional_argument,   0, 'u'},
   {"password",optional_argument,   0, 'p'},
-  {"location",optional_argument,   0, 'L'},
+  {"location",requires_argument,   0, 'L'},
   {0,         0,                   0,  0 }
 };
 
@@ -117,6 +117,7 @@ int main(int argc, char* argv[])
   bool verbose = false;
   std::string user = "admin";
   std::string password = "gurkensalat";
+  std::string root_dev_from_location;
 
   int index = 0, iarg=0;
   while (iarg != -1 )
@@ -158,9 +159,7 @@ int main(int argc, char* argv[])
         }
       case 'L':
         {
-          std::string location = optarg;
-          root_device = RootDevice::Ptr(new RootDevice(location));
-          root_device->init();
+          root_dev_from_location = optarg;
           break;
         }
       case 'l':
@@ -174,15 +173,26 @@ int main(int argc, char* argv[])
           Logging::getInstance()->level(Logging::LOG_LEVEL_TRACE);
           break;
         }
-      default:
+      case -1:
+        // marks the end of the option parsing
         break;
-    };
+      case '?': // error case, no valid option
+      default:
+        return -1;
+    }
   }
 
   // if the root device is still empty here, we obviously did not import 
   // anything, therefore perfom the discovey here.
+  if ( !root_device && !root_dev_from_location.empty() )
+  {
+    root_device = RootDevice::Ptr(new RootDevice(root_dev_from_location));
+    root_device->init();
+  }
+
   if ( !root_device )
   {
+
     std::cout << "Perform RootDevice discovey." << std::endl;
 
     RootDeviceDiscovery discovey;
