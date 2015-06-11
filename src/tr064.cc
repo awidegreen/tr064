@@ -12,7 +12,6 @@
  
 // c lib
 #include <getopt.h>
-#include <execinfo.h>
 
 #define no_argument 0
 #define requires_argument 1 
@@ -22,21 +21,6 @@
 #define DEFAULT_PASSWORD "gurkensalat"
 
 using namespace tr064;
-
-void
-handler()
-{
-    void *trace_elems[20];
-    int trace_elem_count(backtrace( trace_elems, 20 ));
-    char **stack_syms(backtrace_symbols( trace_elems, trace_elem_count ));
-    for ( int i = 0 ; i < trace_elem_count ; ++i )
-    {
-        std::cout << stack_syms[i] << "\n";
-    }
-    free( stack_syms );
-
-    exit(1);
-} 
 
 //------------------------------------------------------------------------------
 
@@ -129,7 +113,6 @@ void print_root_device(const RootDevice::Ptr& dev, bool with_params = false)
 
 int main(int argc, char* argv[])
 {
-  std::set_terminate( handler );
   RootDevice::Ptr root_device;
   bool is_print = false;
   bool verbose = false;
