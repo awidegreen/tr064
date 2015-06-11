@@ -48,7 +48,7 @@ Session::execute_action(
     std::ostream body(&body_buf);
     body << body_str;
 
-    //LOG_DEBUG("Current request: " << std::endl << header_str << body_str);
+    LOG_DEBUG("Current request: " << std::endl << header_str << body_str);
 
     HttpRequest req(headers, body);
     auto response = http_conn.sync(&req);
@@ -117,11 +117,15 @@ Session::get_body(
   std::stringstream ss;
 
   ss << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << std::endl
-     << "<s:Envelope s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">" << std::endl
-     << "  <s:Header>" << std::endl
-     << _auth.get_auth_header_for_request() 
-     << "  </s:Header>" << std::endl
-     << "  <s:Body>" << std::endl 
+     << "<s:Envelope s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\" xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">" << std::endl;
+
+  if (!_no_auth)
+  {
+     ss << "  <s:Header>" << std::endl
+        << _auth.get_auth_header_for_request() 
+        << "  </s:Header>" << std::endl;
+  }
+  ss << "  <s:Body>" << std::endl 
      << "    <u:"  << action->name() << " xmlns:u=\"" << service->type() << "\">" << std::endl;
 
   for ( const auto& in_arg : action->args() )

@@ -1,25 +1,20 @@
 #ifndef TR064EXCEPTION_HH
 #define TR064EXCEPTION_HH
 
-#include <exception>
+#include <stdexcept>
 #include <string>
 
 namespace tr064
 {
 class Tr064Exception : 
-  public std::exception
+  public std::runtime_error
 {
 public:
   Tr064Exception(const std::string& info) : 
-    _info(info) 
+    std::runtime_error(info) 
   { }
 
-  ~Tr064Exception() throw () {}
-
-  const char* what() const throw() { return _info.c_str(); }
-
-private:
-  std::string _info;
+  //~Tr064Exception() throw () {}
 };
 
 }

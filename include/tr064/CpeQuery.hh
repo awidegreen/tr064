@@ -20,13 +20,15 @@ public:
     std::string password;
     std::string host;
     std::string port;
+    bool empty() const { return username.empty() && password.empty(); }
   };
 
   /** ctor */
   CpeQuery(const Service::Ptr& service, const Credentials& credentials) : 
     _service(service),
     _credentials(credentials)
-  { }
+  {
+  }
 
   void execute(const ServiceAction::Ptr& action) const;
 

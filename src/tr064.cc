@@ -12,6 +12,7 @@
  
 // c lib
 #include <getopt.h>
+#include <execinfo.h>
 
 #define no_argument 0
 #define requires_argument 1 
@@ -21,6 +22,21 @@
 #define DEFAULT_PASSWORD "gurkensalat"
 
 using namespace tr064;
+
+void
+handler()
+{
+    void *trace_elems[20];
+    int trace_elem_count(backtrace( trace_elems, 20 ));
+    char **stack_syms(backtrace_symbols( trace_elems, trace_elem_count ));
+    for ( int i = 0 ; i < trace_elem_count ; ++i )
+    {
+        std::cout << stack_syms[i] << "\n";
+    }
+    free( stack_syms );
+
+    exit(1);
+} 
 
 //------------------------------------------------------------------------------
 
@@ -33,6 +49,7 @@ const struct option longopts[] =
   {"user",    optional_argument,   0, 'u'},
   {"password",optional_argument,   0, 'p'},
   {"location",requires_argument,   0, 'L'},
+  {"no-auth", no_argument,         0,  100 },
   {0,         0,                   0,  0 }
 };
 
@@ -112,12 +129,14 @@ void print_root_device(const RootDevice::Ptr& dev, bool with_params = false)
 
 int main(int argc, char* argv[])
 {
+  std::set_terminate( handler );
   RootDevice::Ptr root_device;
   bool is_print = false;
   bool verbose = false;
   std::string user = "admin";
   std::string password = "gurkensalat";
   std::string root_dev_from_location;
+  bool no_auth = false;
 
   int index = 0, iarg=0;
   while (iarg != -1 )
@@ -173,6 +192,9 @@ int main(int argc, char* argv[])
           Logging::getInstance()->level(Logging::LOG_LEVEL_TRACE);
           break;
         }
+      case 100:
+        no_auth = true;
+        break;
       case -1:
         // marks the end of the option parsing
         break;
@@ -239,12 +261,12 @@ int main(int argc, char* argv[])
     return 0;
   }
 
-  if ( password == DEFAULT_PASSWORD )
+  if ( password == DEFAULT_PASSWORD && !no_auth )
   {
     std::cout << "Going to use default password: " 
               << DEFAULT_PASSWORD << std::endl;
   }
-  if ( user == DEFAULT_USERNAME )
+  if ( user == DEFAULT_USERNAME && !no_auth)
   {
     std::cout << "Going to use default username: " 
               << DEFAULT_USERNAME << std::endl;
@@ -317,9 +339,10 @@ int main(int argc, char* argv[])
       ++optind;
     }
 
+
     CpeQuery::Credentials c = { 
-      user,
-      password,
+      no_auth ? "" : user,
+      no_auth ? "" : password,
       root_device->host(),
       root_device->port()
     };
@@ -336,7 +359,7 @@ int main(int argc, char* argv[])
         }
       }
     } 
-    catch (std::exception e)
+    catch (std::runtime_error e)
     {
       std::cerr << "An error occured: " << e.what() << std::endl;
       return 1;

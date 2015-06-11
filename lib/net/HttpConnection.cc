@@ -105,10 +105,12 @@ HttpConnection::sync(const HttpRequest* request)
           " message: " + status_message;
     if (!response_stream || http_version.substr(0, 5) != "HTTP/")
     {
+      LOG_DEBUG("throw invalid http response");
       throw Tr064Exception("Invalid HTTP response: " + m);
     }     
     if ( status_code != 200 )
     {
+      LOG_DEBUG("throw invalid http response code" + m);
       throw Tr064Exception("Invalid HTTP response code: " + m);
     }
     LOG_DEBUG(m);
