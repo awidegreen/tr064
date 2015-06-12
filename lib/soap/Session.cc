@@ -71,11 +71,12 @@ Session::execute_action(
           "unable to proceed, received: \n" + r_s);
     }
 
-    _auth.handle_auth_response(envelope_node);
+    if ( !_no_auth )
+      _auth.handle_auth_response(envelope_node);
 
     delete response;
 
-  } while ( !_auth.is_authenticated() );
+  } while ( !_auth.is_authenticated() && !_no_auth );
 
   // the xml doc should be filled at this point
   auto body_node = doc.child("s:Envelope").child("s:Body");
