@@ -1,7 +1,8 @@
 #include "Session.hh"
 
-#include "../net/HttpConnection.hh"
+#include "../net/HttpConnectionCurl.hh"
 #include "../net/HttpRequest.hh"
+#include "../net/HttpCommon.hh"
 #include <tr064/trace.hh>
 
 #include "../Tr064Exception.hh"
@@ -10,9 +11,29 @@
 
 #include <sstream>
 #include <iostream>
+#include <memory>
 
 using namespace tr064::soap;
 
+namespace 
+{
+  tr064::HeaderList
+  get_headers(
+      const tr064::Service::Ptr& service,        
+      const tr064::ServiceAction::Ptr& action)
+  {
+    std::stringstream ss;
+    
+    tr064::HeaderList headers;
+
+    headers.push_back("Content-Type: text/xml; charset=\"utf-8\"");
+    headers.push_back("Soapaction: \"" + service->type() + "#" + action->name() + "\"");
+    headers.push_back("User-Agent: upnp/1.0 client 1.0 - awidegreen/tr064lib");
+
+    return headers;
+  }
+
+}
 
 //------------------------------------------------------------------------------
 
@@ -25,7 +46,7 @@ Session::execute_action(
   LOG_TRACE("Going to execute Service: " + service->name() + 
             " with action: " + action->name());
 
-  HttpConnection http_conn(_host, _port);
+  std::unique_ptr<HttpConnection> http_conn(new HttpConnectionCurl());
 
   pugi::xml_document doc;
   // iterate as long as it is not authenticated
@@ -35,24 +56,13 @@ Session::execute_action(
     doc.reset();
 
     auto body_str = get_body(service, action);
-    std::stringstream ss;
-    //ss << headers
-       //<< body;
+    auto headers = get_headers(service, action);
 
-    std::stringbuf headers_buf;
-    std::ostream headers(&headers_buf);
-    auto header_str = get_headers(service, action, body_str.size()+4);
-    headers << header_str;
+    LOG_DEBUG("BODY_STR: " + body_str);
 
-    std::stringbuf body_buf;
-    std::ostream body(&body_buf);
-    body << body_str;
-
-    LOG_DEBUG("Current request: " << std::endl << header_str << body_str);
-
-    HttpRequest req(headers, body);
-    auto response = http_conn.sync(&req);
-    //return "";
+    std::string url = "http://" + _host + ":" + _port + service->control_url();
+    HttpRequest req(HttpRequest::POST, url, headers, body_str);
+    auto response = http_conn->sync(&req);
 
     std::ostringstream r_oss;
     r_oss << (response->body());
@@ -89,24 +99,6 @@ Session::execute_action(
 
 //------------------------------------------------------------------------------
 
-std::string
-Session::get_headers(
-    const Service::Ptr& service,        
-    const ServiceAction::Ptr& action,
-    const size_t body_length)
-{
-  std::stringstream ss;
-
-  ss << "POST "  << service->control_url() << " HTTP/1.1\r\n" 
-     << "HOST: " << _host << "\r\n" 
-     << "CONTENT-LENGTH: " << body_length << "\r\n" 
-     << "CONTENT-TYPE: text/xml; charset=\"utf-8\"" << "\r\n" 
-     << "SOAPACTION: \"" << service->type() << "#"  << action->name() << "\"" << "\r\n" 
-     << "CONNECTION: close\r\n"
-     << "USER-AGENT: AVM UPnP/1.0 Client 1.0 - tr064 lib" << "\r\n\r\n";
-
-  return ss.str();
-}
 
 //------------------------------------------------------------------------------
 

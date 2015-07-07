@@ -53,11 +53,6 @@ public:
   void disable_auth() { _no_auth = true; }
 
 private:
-  std::string get_headers(
-      const Service::Ptr& service,
-      const ServiceAction::Ptr& action,
-      const size_t body_length);
-
   std::string get_body(
       const Service::Ptr& service,
       const ServiceAction::Ptr& action);

@@ -13,6 +13,7 @@ add_library(tr064 SHARED $<TARGET_OBJECTS:PugiXml> ${SOURCES})
 
 include_directories("${TR064_SOURCE_DIR}/include")
 include_directories("${TR064_SOURCE_DIR}/contrib")
+include_directories("${TR064_SOURCE_DIR}/contrib/curlcpp/include")
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${OPENSSL_INCLUDE_DIR})
 
@@ -28,6 +29,6 @@ else ()
   message(FATAL_ERROR "OPENSSL_INCLUDE_DIR not defined!")
 endif()
 
-target_link_libraries(tr064 ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES})
+target_link_libraries(tr064 ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES} curlcpp curl)
 
 install(TARGETS tr064 DESTINATION lib)

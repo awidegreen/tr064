@@ -102,9 +102,10 @@ int main(int argc, char* argv[])
       case 't':
         {
           std::string opt_arg = optarg;
+          std::cerr << opt_arg << std::endl;
           if ( opt_arg == "JSON" )
             type = JSON;
-          if ( opt_arg == "XML" )
+          else if ( opt_arg == "XML" )
             type = XML;
           else 
           {

@@ -56,6 +56,7 @@ flags = [
 '-isystem', '/usr/local/include',
 '-isystem', 'include',
 '-isystem', 'contrib',
+'-isystem', 'contrib/curlcpp/include',
 '-isystem', 'lib',
 ]
 

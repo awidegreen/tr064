@@ -16,9 +16,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DTR064_DEBUG=1")
   #set (CMAKE_CXX_FLAGS TR064_DEBUG "1" )
 
 
-#include_directories("${PROJECT_SOURCE_DIR}/pugixml")
-#add_subdirectory(pugixml) 
-
 find_package(OpenSSL REQUIRED COMPONENTS system)
 if (NOT OPENSSL_FOUND)
   message(FATAL_ERROR "OpenSSL NOT found.")

@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
   }
 
   // if the root device is still empty here, we obviously did not import 
-  // anything, therefore perfom the discovey here.
+  // anything, therefore perform the discovery here.
   if ( !root_device && !root_dev_from_location.empty() )
   {
     root_device = RootDevice::Ptr(new RootDevice(root_dev_from_location));
@@ -198,7 +198,7 @@ int main(int argc, char* argv[])
   if ( !root_device )
   {
 
-    std::cout << "Perform RootDevice discovey." << std::endl;
+    std::cout << "Perform RootDevice discovery." << std::endl;
 
     RootDeviceDiscovery discovey;
     auto devs = discovey.discover();

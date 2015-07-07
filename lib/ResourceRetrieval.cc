@@ -2,8 +2,10 @@
 
 #include "net/HttpRequest.hh"
 #include "net/HttpConnection.hh"
+#include "net/HttpConnectionCurl.hh"
 
 #include "Tr064Exception.hh"
+#include <tr064/trace.hh>
 
 
 // std lib
@@ -12,6 +14,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <memory>
 
 using namespace tr064;
 
@@ -37,29 +40,12 @@ ResourceRetreivalHttp::get(const std::string& path) const
 
   std::cout << "Fetch resource (GET) http://" 
             << _host << ":" << _port << path << std::endl;
-
-  //std::clog << "Using host: " << _host 
-            //<< " and port: " << _port 
-            //<< " path: "<< path << std::endl;
-                                  
-
-  // Form the request. We specify the "Connection: close" header so that the
-  // server will close the socket after transmitting the response. This will
-  // allow us to treat all data up until the EOF as the content.
-  std::stringbuf headers_buf;
-  std::ostream headers(&headers_buf);
-  headers << "GET " << path << " HTTP/1.0\r\n";
-  headers << "Host: " << _host << ":" << _port << "\r\n";
-  headers << "Accept: */*\r\n";
-  headers << "Connection: close\r\n\r\n";
-
-  std::stringbuf body_buf;
-  std::ostream body(&body_buf);
+  std::string url = "http://" + _host + ":" + _port + path;
 
 
-  HttpConnection http_conn(_host, _port);
-  HttpRequest req(headers, body);
-  auto response = http_conn.sync(&req);
+  std::unique_ptr<HttpConnection> http_conn(new HttpConnectionCurl());
+  HttpRequest req(HttpRequest::GET, url, HeaderList(), "");
+  auto response = http_conn->sync(&req);
 
   auto os = new std::istream(response->body());
   ResourceStream result_stream(os);
