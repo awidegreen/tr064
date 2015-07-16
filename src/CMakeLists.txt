@@ -5,9 +5,9 @@ add_executable(tr064tool tr064.cc)
 add_executable(tr064export tr064export.cc)
 
 # tr064 is the internal library
-target_link_libraries(tr064tool tr064 pthread)
+target_link_libraries(tr064tool tr064 pthread curlcpp)
 
-target_link_libraries(tr064export tr064 pthread)
+target_link_libraries(tr064export tr064 pthread curlcpp)
 
 install(TARGETS tr064tool DESTINATION bin)
 install(TARGETS tr064export DESTINATION bin)

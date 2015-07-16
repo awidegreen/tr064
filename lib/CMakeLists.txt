@@ -9,7 +9,6 @@ file(GLOB SOURCES
   "soap/*.hh"
   )
 add_library(tr064 SHARED $<TARGET_OBJECTS:PugiXml> ${SOURCES})
-#add_library(tr064 ${SOURCES})
 
 include_directories("${TR064_SOURCE_DIR}/include")
 include_directories("${TR064_SOURCE_DIR}/contrib")
@@ -29,6 +28,6 @@ else ()
   message(FATAL_ERROR "OPENSSL_INCLUDE_DIR not defined!")
 endif()
 
-target_link_libraries(tr064 ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES} curlcpp curl)
+target_link_libraries(tr064 ${Boost_LIBRARIES} ${OPENSSL_LIBRARIES} curl)
 
 install(TARGETS tr064 DESTINATION lib)

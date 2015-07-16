@@ -19,6 +19,7 @@ add_executable( ${PROJECT_NAME} ${SOURCES} )
 target_link_libraries( ${PROJECT_NAME} 
                         tr064
                         pthread 
+                        curlcpp 
                         gmock 
                         gmock_main 
                         gtest 
