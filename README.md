@@ -42,8 +42,9 @@ tr064export myrouter.json
 Out-of-sources build with cmake:
 
 ```
-git clone <repo> tr064
+git clone https://github.com/awidegreen/tr064.git tr064
 cd tr064
+git submodule update --init --recursive
 mkdir build
 cd build
 cmake ..
