@@ -59,6 +59,7 @@ Make sure that you have the following libraries installed:
 * boost
 * google-test (optional)
 * openssl (for MD5 algorithm)
+* libcurl (for http requests)
 
 ## Debugging
 
