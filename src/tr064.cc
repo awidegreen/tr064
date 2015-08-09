@@ -17,6 +17,10 @@
 #define requires_argument 1 
 #define optional_argument 2
 
+#define NO_AUTH_ARGID       100
+#define HTTP_USERNAME_ARGID 101
+#define HTTP_PASSWORD_ARGID 102
+
 #define DEFAULT_USERNAME "admin"
 #define DEFAULT_PASSWORD "gurkensalat"
 
@@ -33,7 +37,9 @@ const struct option longopts[] =
   {"user",    optional_argument,   0, 'u'},
   {"password",optional_argument,   0, 'p'},
   {"location",requires_argument,   0, 'L'},
-  {"no-auth", no_argument,         0,  100 },
+  {"no-auth", no_argument,         0, NO_AUTH_ARGID },
+  {"http-username", requires_argument, 0, HTTP_USERNAME_ARGID },
+  {"http-password", requires_argument, 0, HTTP_PASSWORD_ARGID },
   {0,         0,                   0,  0 }
 };
 
@@ -120,6 +126,7 @@ int main(int argc, char* argv[])
   std::string password = "gurkensalat";
   std::string root_dev_from_location;
   bool no_auth = false;
+  std::string http_username, http_password = "";
 
   int index = 0, iarg=0;
   while (iarg != -1 )
@@ -175,8 +182,14 @@ int main(int argc, char* argv[])
           Logging::getInstance()->level(Logging::LOG_LEVEL_TRACE);
           break;
         }
-      case 100:
+      case NO_AUTH_ARGID:
         no_auth = true;
+        break;
+      case HTTP_USERNAME_ARGID:
+        http_username = optarg;
+        break;
+      case HTTP_PASSWORD_ARGID:
+        http_password = optarg;
         break;
       case -1:
         // marks the end of the option parsing
@@ -327,7 +340,9 @@ int main(int argc, char* argv[])
       no_auth ? "" : user,
       no_auth ? "" : password,
       root_device->host(),
-      root_device->port()
+      root_device->port(),
+      http_username,
+      http_password
     };
     try
     {

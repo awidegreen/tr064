@@ -102,5 +102,14 @@ HttpConnectionCurl::sync(const HttpRequest* request)
   // empty the curl stream
   _out_stream.str(std::string());
 
+
+  if ( status_code == 401 && !_credentials.empty() )
+  { // right, so we are not is authenticated, lets try it again with user&pw 
+    _ceasy->add(curl_pair<CURLoption, std::string>(CURLOPT_USERPWD, 
+          _credentials.username + ":" + _credentials.password));
+    _ceasy->add(curl_pair<CURLoption, long>(CURLOPT_HTTPAUTH, CURLAUTH_ANY));
+    return sync(request);
+  }
+
   return new HttpResponse(header_list, body_buf);
 }

@@ -20,6 +20,9 @@ CpeQuery::execute(const ServiceAction::Ptr& action) const
   if ( _credentials.empty() )
     soap.disable_auth();
 
+  soap.set_http_credentials(
+      _credentials.http_username, _credentials.http_password);
+
   auto body_node = soap.execute_action(_service, action);
 
   std::string response_node_name = "u:" + action->name() + "Response";

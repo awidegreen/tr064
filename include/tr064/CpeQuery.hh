@@ -20,6 +20,8 @@ public:
     std::string password;
     std::string host;
     std::string port;
+    std::string http_username;
+    std::string http_password;
     bool empty() const { return username.empty() && password.empty(); }
   };
 

@@ -11,14 +11,23 @@ class HttpResponse;
 class HttpConnection
 {
 public:
+  struct Credentials
+  { 
+    std::string username; 
+    std::string password; 
+    bool empty() const { return username.empty(); }
+  };
+
   virtual ~HttpConnection() { }
 
   virtual HttpResponse* sync(const HttpRequest* request) = 0;
 
+  void set_credentials(const Credentials& c) { _credentials = c; }
+
 
 protected:
   HttpConnection() { }
-
+  Credentials _credentials;
 };
 
 }

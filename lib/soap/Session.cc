@@ -47,6 +47,8 @@ Session::execute_action(
             " with action: " + action->name());
 
   std::unique_ptr<HttpConnection> http_conn(new HttpConnectionCurl());
+  http_conn->set_credentials(
+      HttpConnection::Credentials{_http_user, _http_pw});
 
   pugi::xml_document doc;
   // iterate as long as it is not authenticated

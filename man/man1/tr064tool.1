@@ -38,6 +38,13 @@ If specified, the action will be executed without user authentication; -u and
 Enforce a root device location based on the tr064desc.xml location, e.g.
 http://192.168.1.1:49000/tr64desc.xml
 .TP
+\---http-username \fIhttp-username\fP
+Specifies a username which shall be used in case HTTP authentication is required.
+.TP
+\---http-password \fIhttp-password\fP
+Specifies the password in combination with username which shall be used in 
+case HTTP authentication is required.
+.TP
 \-i, --import \fIjson|xml file\fP
 Imports a CPE root device description based on xml or json (see 
 \fBtr064export(1)\fP for exporting discovered root devices).

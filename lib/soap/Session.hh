@@ -52,6 +52,9 @@ public:
 
   void disable_auth() { _no_auth = true; }
 
+  void set_http_credentials(const std::string& user, const std::string& pw)
+  { _http_user = user; _http_pw = pw; }
+
 private:
   std::string get_body(
       const Service::Ptr& service,
@@ -59,6 +62,9 @@ private:
 
   std::string _host;
   std::string _port;
+  std::string _http_user;
+  std::string _http_pw;
+
   Auth _auth;
   bool _no_auth;
 };
