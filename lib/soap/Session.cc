@@ -128,9 +128,9 @@ Session::get_body(
     // skip empty in args
     if ( in_arg->value().empty() ) continue;
 
-    ss << "       <" << in_arg->name() << ">" 
-       << in_arg->value() 
-       << "       </" << in_arg->name() << ">" << std::endl;
+    ss << "       <" << in_arg->name() << ">"
+       << in_arg->value()
+       << "</" << in_arg->name() << ">" << std::endl;
   }
 
   ss << "    </u:" << action->name() << ">" << std::endl
